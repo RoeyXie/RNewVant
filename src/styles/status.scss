@@ -1,0 +1,210 @@
+.error {
+  color: #f56c6c;
+}
+.success {
+  color: #67c23a;
+}
+.waring {
+  color: #e6a23c;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+// font 相关公共样式
+$font-list: 12 14 16 18 20 22 24 26 28 30 40 50 60; // 循环用font数组,需要其他宽度的时候数组添加即可
+@each $font in $font-list {
+  .font-size-#{$font} {
+    font-size: $font + px;
+  }
+}
+
+.blod {
+  font-weight: bold;
+}
+
+.font {
+  // &-blue {
+  //     color: #409EFF;
+  // }
+  &-grey {
+    color: #999;
+  }
+  &-sliver {
+    color: #4d4d4d;
+  }
+  &-white {
+    color: #fff;
+  }
+  &-red {
+    color: #ff6262;
+  }
+}
+
+// 通用位置样式（绝对定位、margin、padding等)
+$list-width: 1 2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 30 40 50 60; // 循环用margin、padding数组,需要其他宽度的时候数组添加即可
+.clearfix:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  height: 0;
+}
+
+.clearfix {
+  /* 为了照顾ie6浏览器*/
+  zoom: 1;
+  clear: both;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.block {
+  display: block;
+}
+
+.no {
+  display: none;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.vertical- {
+  &top {
+    vertical-align: top;
+  }
+  &middle {
+    vertical-align: middle;
+  }
+  &bottom {
+    vertical-align: bottom;
+  }
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.default {
+  cursor: default;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+  // z-index: 9;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+@each $width in $list-width {
+  .p-#{$width} {
+    padding: $width + px !important;
+  }
+  .p-l-#{$width} {
+    padding-left: $width + px !important;
+  }
+  .p-t-#{$width} {
+    padding-top: $width + px !important;
+  }
+  .p-r-#{$width} {
+    padding-right: $width + px !important;
+  }
+  .p-b-#{$width} {
+    padding-bottom: $width + px !important;
+  }
+  .m-#{$width} {
+    margin: $width + px !important;
+  }
+  .m-l-#{$width} {
+    margin-left: $width + px !important;
+  }
+  .m-t-#{$width} {
+    margin-top: $width + px !important;
+  }
+  .m-r-#{$width} {
+    margin-right: $width + px !important;
+  }
+  .m-b-#{$width} {
+    margin-bottom: $width + px !important;
+  }
+}
+
+.height-100-per {
+  height: 100%;
+}
+
+.width-100-per {
+  width: 100%;
+}
+
+.width-50-per {
+  width: 50%;
+}

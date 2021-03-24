@@ -4,7 +4,9 @@ import router from "./router";
 import store from "./store";
 import Vant from "vant";
 import "vant/lib/index.css";
-import publicComponents from "@/components/index.ts";
+import "@/styles/index.scss"; // 初始化样式
+import publicComponents from "@/components/index.ts"; // 初始化公共组件
+import "@/initialMenu.ts";
 const app = createApp(App);
 app
   .use(store)

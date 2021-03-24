@@ -2,7 +2,7 @@ export const menuList: Array<MenuItem> = [
   {
     menuId: 1,
     parentId: 0,
-    name: "Basic",
+    name: "基础组件",
     url: "",
     list: [
       {
@@ -10,9 +10,14 @@ export const menuList: Array<MenuItem> = [
         parentId: 1,
         name: "Button 按钮",
         url: "/button",
-        list: [
-          
-        ],
+        list: [],
+      },
+      {
+        menuId: 12,
+        parentId: 1,
+        name: "Cell 单元格",
+        url: "/cell",
+        list: [],
       },
     ],
   },
