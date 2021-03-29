@@ -22,15 +22,10 @@ export default defineComponent({
       state.show = false;
       state.date = formatDate(value);
     };
-    return toRefs({ ...state, formatDate, onConfirm });
+    return { ...toRefs(state), onConfirm };
   },
 });
 </script>
-
-
-
-<style lang="scss">
+<style lang="scss" scoped>
 /* @import url() */
 </style>
-
-

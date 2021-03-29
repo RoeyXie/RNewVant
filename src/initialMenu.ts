@@ -1,6 +1,6 @@
 import { menuList } from "@/assets/menuList";
-import router from "@/router";
 import { RouteRecordRaw } from "vue-router";
+import router from "@/router";
 
 const addRoutes: RouteRecordRaw[] = [];
 function generaMenu(paramsList: MenuList[]) {
@@ -23,8 +23,8 @@ function generaMenu(paramsList: MenuList[]) {
     }
   });
 }
+
 generaMenu(menuList);
 addRoutes.forEach((route) => {
   router.addRoute(route.name || "", route);
 });
-console.log(router)

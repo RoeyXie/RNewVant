@@ -19,6 +19,13 @@ export const menuList: Array<MenuItem> = [
         url: "/cell",
         list: [],
       },
+      {
+        menuId: 12,
+        parentId: 1,
+        name: "Icon 图标",
+        url: "/icon",
+        list: [],
+      },
     ],
   },
 ];
