@@ -7,9 +7,9 @@
   </div>
 </template>
 
-<script>
+<script lang="tsx">
 import { defineComponent, reactive, toRefs, computed } from "vue";
-import { getPx } from "../../utils/utils.ts";
+import { getPx } from "../../utils/utils";
 export default defineComponent({
   name: "RIcon",
   props: {

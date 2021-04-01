@@ -22,7 +22,7 @@ export default defineComponent({
     text: String,
     backUrl: String,
   },
-  setup(props, { emit, root }) {
+  setup(props, { emit }) {
     const state = reactive({});
     const backHandler = () => {
       if (props.backUrl) {

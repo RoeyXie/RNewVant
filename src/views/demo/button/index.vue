@@ -1,31 +1,22 @@
 <template>
-  <div class="test">
-    <van-cell title="选择单个日期" :value="date" @click="show = true" />
-    <van-calendar :show="show" @confirm="onConfirm" />
+  <div class="button-view">
+    <r-button type="primary" size="large">大号按钮</r-button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
-  name: "RButton",
-  components: {},
+  name: "ButtonView",
+  props: {},
   setup() {
-    const state = reactive({
-      date: "",
-      show: false,
-    });
-    const formatDate: (date: Date) => string = (date: Date) =>
-      `${date.getMonth() + 1}/${date.getDate()}`;
-
-    const onConfirm: (value: Date) => void = (value: Date) => {
-      state.show = false;
-      state.date = formatDate(value);
-    };
-    return { ...toRefs(state), onConfirm };
+    const state = reactive({});
+    return { ...toRefs(state) };
   },
 });
 </script>
-<style lang="scss" scoped>
+<style lang="scss" scpoed>
 /* @import url() */
+.button-view {
+}
 </style>

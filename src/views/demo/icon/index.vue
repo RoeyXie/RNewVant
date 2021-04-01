@@ -19,7 +19,7 @@ import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   name: "IconView",
   components: {},
-  setup(props, { root, emit }) {
+  setup() {
     const state = reactive({
       demoList: [
         {
@@ -103,11 +103,11 @@ export default defineComponent({
       font-size: 14px;
       line-height: 16px;
     }
-    &__iconbox{
-      padding: 0 20px; 
+    &__iconbox {
+      padding: 0 20px;
     }
     .r-icon + .r-icon {
-      padding-left: 20px;
+      margin-left: 20px;
     }
   }
 }
