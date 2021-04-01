@@ -7,7 +7,9 @@ import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   name: "RButton",
   components: {},
-  props:{},
+  props:{
+    // type:
+  },
   setup(props, { root, emit }) {
     const state = reactive({});
     return { ...toRefs(state) };
@@ -17,5 +19,6 @@ export default defineComponent({
 <style lang="scss">
 /* @import url() */
 .r-button {
+  
 }
 </style>

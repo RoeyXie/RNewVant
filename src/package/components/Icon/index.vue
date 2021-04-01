@@ -1,8 +1,8 @@
 <template>
-  <div class="r-icon">
+  <div @click="clickHandler" class="r-icon">
     <i :style="fontStyle" :class="iconClass">
       <img v-if="showImg" :src="name" class="r-iconfont__image" />
-      <div :class="dotClass"></div>
+      <div v-if="dot || badge" :class="dotClass">{{ badge }}</div>
     </i>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default defineComponent({
     badge: [Number, String],
     color: String,
   },
-  setup(props, { root, emit }) {
+  setup(props, { emit }) {
     const state = reactive({
       iconClass: computed(() => {
         return !state.showImg
@@ -32,14 +32,20 @@ export default defineComponent({
       }),
       fontStyle: computed(() => {
         return {
-          fontSize: getPx(props.size) || "32px",
+          fontSize: props.size ? getPx(props.size) : "32px",
+          color: props.color || "#323233",
+          width: props.size ? getPx(props.size) : "32px",
+          height: props.size ? getPx(props.size) : "32px",
         };
       }),
       dotClass: computed(() => {
         return ["r-badge", props.dot ? "r-badge-dot" : ""];
       }),
     });
-    return { ...toRefs(state) };
+    const clickHandler = (e) => {
+      emit("click", e);
+    };
+    return { ...toRefs(state), clickHandler };
   },
 });
 </script>
@@ -51,10 +57,38 @@ export default defineComponent({
     position: relative;
     display: inline-block;
     line-height: 1;
-    margin: 16px 0 16px;
+    // margin: 16px 0 16px;
     &__image {
       width: 1em;
       height: 1em;
+    }
+    .r-badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      box-sizing: border-box;
+      min-width: 16px;
+      padding: 0 3px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 12px;
+      font-family: -apple-system-font, Helvetica Neue, Arial, sans-serif;
+      line-height: 1.2;
+      text-align: center;
+      background-color: #ee0a24;
+      border: 1px solid #fff;
+      border-radius: 16px;
+      -webkit-transform: translate(50%, -50%);
+      transform: translate(50%, -50%);
+      -webkit-transform-origin: 100%;
+      transform-origin: 100%;
+    }
+    .r-badge-dot {
+      width: 8px;
+      min-width: 0;
+      height: 8px;
+      background-color: #ee0a24;
+      border-radius: 100%;
     }
   }
 }

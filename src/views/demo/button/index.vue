@@ -1,7 +1,7 @@
 <template>
   <div class="test">
     <van-cell title="选择单个日期" :value="date" @click="show = true" />
-    <van-calendar v-model:show="show" @confirm="onConfirm" />
+    <van-calendar :show="show" @confirm="onConfirm" />
   </div>
 </template>
 

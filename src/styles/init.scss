@@ -1,6 +1,11 @@
 @import "./var.scss";
 @import "./status.scss";
 
+html,
+body {
+  height: 100% !important;
+}
+
 :root {
   * {
     box-sizing: border-box;

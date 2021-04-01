@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { menuList } from "@/assets/menuList.ts";
+import { menuList } from "@/assets/menuList";
 import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   name: "",
@@ -18,3 +18,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+  .home{
+    padding: 30px;
+  }
+</style>
