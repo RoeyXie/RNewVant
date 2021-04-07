@@ -14,13 +14,13 @@ export default defineComponent({
     const state = reactive({
       menuList,
     });
-    return toRefs({ ...state });
+    return { ...toRefs(state) };
   },
 });
 </script>
 
 <style lang="scss" scoped>
-  .home{
-    padding: 30px;
-  }
+.home {
+  padding: 30px;
+}
 </style>

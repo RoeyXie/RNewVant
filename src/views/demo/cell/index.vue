@@ -9,7 +9,7 @@ export default defineComponent({
   components: {},
   setup() {
     const state = reactive({});
-    return toRefs({ ...state });
+    return { ...toRefs(state) };
   },
 });
 </script>

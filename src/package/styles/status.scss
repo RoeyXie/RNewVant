@@ -47,6 +47,28 @@
   display: block;
 }
 
+.turn-around {
+  animation: turn 1s linear infinite;
+}
+
+@keyframes turn {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  25% {
+    -webkit-transform: rotate(90deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  75% {
+    -webkit-transform: rotate(270deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -225,4 +247,27 @@ $list-width: 1 2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 30 40 50 60; // 循环用mar
 
 .width-50-per {
   width: 50%;
+}
+
+.demo-section {
+  height: calc(100% - 56px);
+  background: #f7f8fa;
+  overflow-y: auto;
+  &__content {
+    overflow-y: auto;
+    background: #ffffff;
+    margin: 20px;
+    border-radius: 20px;
+  }
+  &__title {
+    margin: 0;
+    padding: 32px 16px 16px;
+    color: rgba(69, 90, 100, 0.6);
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+  }
+  &__iconbox {
+    padding: 0 20px;
+  }
 }

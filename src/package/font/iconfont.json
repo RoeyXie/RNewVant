@@ -6,6 +6,41 @@
   "description": "用于vant练习",
   "glyphs": [
     {
+      "icon_id": "20385075",
+      "name": "loading2",
+      "font_class": "loading2",
+      "unicode": "ecad",
+      "unicode_decimal": 60589
+    },
+    {
+      "icon_id": "586961",
+      "name": "loading-spinner",
+      "font_class": "loadingspinner",
+      "unicode": "e770",
+      "unicode_decimal": 59248
+    },
+    {
+      "icon_id": "1381408",
+      "name": "loading1",
+      "font_class": "loading1",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "169390",
+      "name": "人员小组",
+      "font_class": "renyuanxiaozu",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "722473",
+      "name": "loading",
+      "font_class": "loading",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
       "icon_id": "16921545",
       "name": "关闭",
       "font_class": "guanbi",

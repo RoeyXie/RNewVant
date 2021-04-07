@@ -14,18 +14,16 @@ export default defineComponent({
   name: "RIcon",
   props: {
     dot: Boolean,
-    name: String,
+    name: {
+      type: String,
+      required: true,
+    },
     size: [Number, String],
     badge: [Number, String],
     color: String,
   },
   setup(props, { emit }) {
     const state = reactive({
-      iconClass: computed(() => {
-        return !state.showImg
-          ? ["r-iconfont", "iconfont", props.name]
-          : "r-iconfont imgfont";
-      }),
       showImg: computed(() => {
         const reg = /^http/;
         return reg.test(props.name);
@@ -42,10 +40,15 @@ export default defineComponent({
         return ["r-badge", props.dot ? "r-badge-dot" : ""];
       }),
     });
-    const clickHandler = (e) => {
+    const iconClass = computed(() => {
+      return !state.showImg
+        ? ["r-iconfont", "iconfont", props.name]
+        : "r-iconfont imgfont";
+    });
+    const clickHandler = (e: MouseEvent) => {
       emit("click", e);
     };
-    return { ...toRefs(state), clickHandler };
+    return { ...toRefs(state), iconClass, clickHandler };
   },
 });
 </script>

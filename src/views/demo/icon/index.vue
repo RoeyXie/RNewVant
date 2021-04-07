@@ -85,30 +85,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 /* @import url() */
 .icon-view {
-  .demo-section {
-    height: calc(100% - 56px);
-    background: #f7f8fa;
-    overflow-y: auto;
-    &__content {
-      overflow-y: auto;
-      background: #ffffff;
-      margin: 20px;
-      border-radius: 20px;
-    }
-    &__title {
-      margin: 0;
-      padding: 32px 16px 16px;
-      color: rgba(69, 90, 100, 0.6);
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 16px;
-    }
-    &__iconbox {
-      padding: 0 20px;
-    }
-    .r-icon + .r-icon {
-      margin-left: 20px;
-    }
+  .r-icon + .r-icon {
+    margin-left: 20px;
   }
 }
 </style>

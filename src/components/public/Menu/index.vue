@@ -29,7 +29,7 @@ export default defineComponent({
   },
   setup() {
     const state = reactive({});
-    return toRefs({ ...state });
+    return {...toRefs(state)};
   },
 });
 </script>
