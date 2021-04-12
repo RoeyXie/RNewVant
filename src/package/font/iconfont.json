@@ -6,6 +6,27 @@
   "description": "用于vant练习",
   "glyphs": [
     {
+      "icon_id": "134658",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "36590",
+      "name": "商店",
+      "font_class": "shangdian",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1026209",
+      "name": "定位",
+      "font_class": "dingwei",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
       "icon_id": "20385075",
       "name": "loading2",
       "font_class": "loading2",
