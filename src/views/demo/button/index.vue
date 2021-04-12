@@ -7,7 +7,7 @@
         :key="index"
         class="demo-button-block"
       >
-        <p class="demo-section__title">{{ item.title }}</p>
+        <p class="demo-section-block__title">{{ item.title }}</p>
         <div v-for="(list, i) in item.list" :key="i" class="demo-button-row">
           <r-button v-for="(btn, key) in list" v-bind="btn.attrs" :key="key">{{
             btn.text
@@ -201,6 +201,83 @@ export default defineComponent({
                   round: true,
                 },
                 text: "圆形按钮",
+              },
+            ],
+          ],
+        },
+        {
+          title: "按钮尺寸",
+          list: [
+            [
+              {
+                attrs: {
+                  size: "large",
+                  type: "primary",
+                },
+                text: "大号按钮",
+              },
+            ],
+            [
+              {
+                attrs: {
+                  size: "normal",
+                  type: "primary",
+                },
+                text: "普通按钮",
+              },
+              {
+                attrs: {
+                  size: "small",
+                  type: "primary",
+                },
+                text: "小型按钮",
+              },
+              {
+                attrs: {
+                  size: "mini",
+                  type: "primary",
+                },
+                text: "迷你按钮",
+              },
+            ],
+          ],
+        },
+        {
+          title: "块级元素",
+          list: [
+            [
+              {
+                attrs: {
+                  block: true,
+                  type: "primary",
+                },
+                text: "块级按钮",
+              },
+            ],
+          ],
+        },
+        {
+          title: "自定义颜色",
+          list: [
+            [
+              {
+                attrs: {
+                  color: "#7232dd",
+                },
+                text: "单色按钮",
+              },
+              {
+                attrs: {
+                  color: "#7232dd",
+                  plain: true,
+                },
+                text: "单色按钮",
+              },
+              {
+                attrs: {
+                  color: "linear-gradient(to right, #ff6034, #ee0a24)",
+                },
+                text: "渐变色按钮",
               },
             ],
           ],

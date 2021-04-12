@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, reactive, onMounted, PropType, computed } from "vue";
+import { defineComponent, PropType } from "vue";
 type ButtonType = "default" | "primary" | "info" | "warning" | "danger";
 type ButtonSize = "large" | "normal" | "small" | "mini";
 type LoadingType = "circular" | "spinner";
@@ -36,7 +36,7 @@ export default defineComponent({
     },
     iconPosition: String as PropType<"left" | "right">,
   },
-  setup(props, { attrs, emit, slots }) {
+  setup(props, { emit, slots }) {
     const btnClass = () => {
       return [
         "r-button",
@@ -47,7 +47,15 @@ export default defineComponent({
         props.disabled ? "r-button--disabled" : "",
         props.square ? "r-button--square" : "",
         props.round ? "r-button--round" : "",
+        props.block ? "r-button--block" : "",
       ];
+    };
+    const btnStyle = () => {
+      return {
+        color: props.plain ? props.color : props.color ? "#ffffff" : "",
+        background: props.plain ? "" : props.color,
+        borderColor: props.plain && props.color,
+      };
     };
     const clickHandler = (e: MouseEvent) => {
       emit("click", e);
@@ -83,7 +91,12 @@ export default defineComponent({
     return () => {
       const { tag, disabled } = props;
       return (
-        <tag onClick={clickHandler} class={btnClass()} disabled={disabled}>
+        <tag
+          onClick={clickHandler}
+          class={btnClass()}
+          style={btnStyle()}
+          disabled={disabled}
+        >
           <div class="flex-center height-100-per">
             {renderIcon()}
             <span class="r-button__text">{renderText()}</span>
@@ -219,5 +232,27 @@ export default defineComponent({
 
 .r-button--round {
   border-radius: 999px;
+}
+
+.r-button--large {
+  width: 100%;
+  height: 50px;
+}
+
+.r-button--small {
+  height: 32px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.r-button--mini {
+  height: 24px;
+  padding: 0 4px;
+  font-size: 10px;
+}
+
+.r-button--block {
+  display: block;
+  width: 100%;
 }
 </style>

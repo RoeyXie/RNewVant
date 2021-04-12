@@ -10,6 +10,7 @@
 <script lang="tsx">
 import { defineComponent, reactive, toRefs, computed } from "vue";
 import { getPx } from "../../utils/utils";
+import { getFontSize } from "@/adapt";
 export default defineComponent({
   name: "RIcon",
   props: {
@@ -25,15 +26,24 @@ export default defineComponent({
   setup(props, { emit }) {
     const state = reactive({
       showImg: computed(() => {
-        const reg = /^http/;
-        return reg.test(props.name);
+        return /^http/.test(props.name);
       }),
       fontStyle: computed(() => {
+        const DEFAULT_SIZE = 32;
+        let fontSize;
+        const dprSize = props.size || DEFAULT_SIZE;
+        if (/px/.test(dprSize.toString()) || typeof dprSize === "number") {
+          const propsFontSize = +getPx(dprSize).slice(0, -2);
+          fontSize = getPx(getFontSize(propsFontSize));
+        } else {
+          // % 与 rem
+          fontSize = props.size;
+        }
         return {
-          fontSize: props.size ? getPx(props.size) : "32px",
+          fontSize,
           color: props.color || "#323233",
-          width: props.size ? getPx(props.size) : "32px",
-          height: props.size ? getPx(props.size) : "32px",
+          width: fontSize,
+          height: fontSize,
         };
       }),
       dotClass: computed(() => {

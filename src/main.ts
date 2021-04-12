@@ -7,6 +7,7 @@ import "vant/lib/index.css";
 import "@/styles/index.scss"; // 初始化样式
 import publicComponents from "@/components/index.ts"; // 初始化公共组件
 import RVantComponents from "@/package/index.ts"; // 初始化公共组件
+import adapt from './adapt'
 
 import "@/initialMenu.ts";
 const app = createApp(App);
@@ -17,3 +18,5 @@ app
   .use(publicComponents)
   .use(RVantComponents)
   .mount("#app");
+
+  adapt()
