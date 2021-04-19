@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { defineComponent, reactive, toRefs, onMounted, computed } from "vue";
+import { defineComponent, reactive, computed } from "vue";
 export default defineComponent({
   name: "RCellGroup",
   props: {
@@ -9,7 +9,7 @@ export default defineComponent({
       default: true,
     },
   },
-  setup(props, { attrs, emit, slots }) {
+  setup(props, { slots }) {
     const state = reactive({
       cellGroupClass: computed(() => {
         return ["r-cell-group", props.border ? "r-hairline--top-bottom" : ""];

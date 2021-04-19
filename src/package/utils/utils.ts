@@ -8,3 +8,4 @@ export const getType: (obj: unknown) => string = (obj: unknown) =>
     .slice(1, -1)
     .split(" ")[1]
     .toLowerCase();
+
