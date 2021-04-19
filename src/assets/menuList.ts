@@ -1,4 +1,4 @@
-export const menuList: Array<MenuItem> = [
+export const menuList: MenuItem[] = [
   {
     menuId: 1,
     parentId: 0,

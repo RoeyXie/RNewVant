@@ -3,7 +3,7 @@ import { RouteRecordRaw } from "vue-router";
 import router from "@/router";
 
 const addRoutes: RouteRecordRaw[] = [];
-function generaMenu(paramsList: MenuList[]) {
+function generaMenu(paramsList: MenuItem[]) {
   paramsList.forEach((item) => {
     const menu = {
       path: item.url,

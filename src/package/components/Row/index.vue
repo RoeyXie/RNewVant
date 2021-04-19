@@ -6,6 +6,9 @@ export default defineComponent({
   setup(props, { attrs, emit, slots }) {
     const state = reactive({});
     const defaultSlots = slots.default ? slots.default() : "";
+    const consolefn = () => {
+      console.log("aaaa");
+    };
     return () => {
       return <div class="r-row">{defaultSlots}</div>;
     };

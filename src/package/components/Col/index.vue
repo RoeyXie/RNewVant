@@ -1,5 +1,11 @@
 <script lang="tsx">
-import { defineComponent, reactive, toRefs, onMounted } from "vue";
+import {
+  defineComponent,
+  reactive,
+  toRefs,
+  onMounted,
+  getCurrentInstance,
+} from "vue";
 export default defineComponent({
   name: "r-col",
   props: {
@@ -14,8 +20,9 @@ export default defineComponent({
     offset: [String, Number],
   },
   setup(props, context) {
-    const { attrs, emit, slots } = context
-    console.log("context",context)
+    const { attrs, emit, slots } = context;
+    const internalInstance = getCurrentInstance(); // works
+    console.log(internalInstance);
     const state = reactive({});
     const defaultSlots = slots.default ? slots.default() : "";
     const colClass = () => {
