@@ -65,7 +65,8 @@ export default defineComponent({
 <style lang="scss">
 /* @import url() */
 .r-icon {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   &font {
     position: relative;
     display: inline-block;

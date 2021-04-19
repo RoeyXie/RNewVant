@@ -20,10 +20,17 @@ export const menuList: Array<MenuItem> = [
         list: [],
       },
       {
-        menuId: 12,
+        menuId: 13,
         parentId: 1,
         name: "Icon 图标",
         url: "/icon",
+        list: [],
+      },
+      {
+        menuId: 14,
+        parentId: 1,
+        name: "Layout 布局",
+        url: "/layout",
         list: [],
       },
     ],

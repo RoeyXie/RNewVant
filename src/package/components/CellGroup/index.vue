@@ -12,14 +12,17 @@ export default defineComponent({
   setup(props, { attrs, emit, slots }) {
     const state = reactive({
       cellGroupClass: computed(() => {
-        return ["r-cell-group", props.border ? "r-cell-group-border" : ""];
+        return ["r-cell-group", props.border ? "r-hairline--top-bottom" : ""];
       }),
     });
     const defaultSlot = slots.default ? slots.default() : null;
+    const titleDom = props.title ? (
+      <h1 class="r-cell-group__title">{props.title}</h1>
+    ) : null;
     return () => (
-      <div class={state.cellGroupClass}>
-        <h1 class="r-cell-group__title">{props.title}</h1>
-        {defaultSlot}
+      <div>
+        {titleDom}
+        <div class={state.cellGroupClass}>{defaultSlot}</div>
       </div>
     );
   },
@@ -28,6 +31,7 @@ export default defineComponent({
 <style lang="scss" scpoed>
 /* @import url() */
 .r-cell-group {
+  position: relative;
   &__title {
     padding: 16px 16px 8px;
     color: #969799;

@@ -6,6 +6,13 @@
   "description": "用于vant练习",
   "glyphs": [
     {
+      "icon_id": "13519434",
+      "name": "loading",
+      "font_class": "iconloadingspinner",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
       "icon_id": "134658",
       "name": "搜索",
       "font_class": "sousuo",
@@ -32,13 +39,6 @@
       "font_class": "loading2",
       "unicode": "ecad",
       "unicode_decimal": 60589
-    },
-    {
-      "icon_id": "586961",
-      "name": "loading-spinner",
-      "font_class": "loadingspinner",
-      "unicode": "e770",
-      "unicode_decimal": 59248
     },
     {
       "icon_id": "1381408",
@@ -78,7 +78,7 @@
     {
       "icon_id": "637792",
       "name": "上",
-      "font_class": "shang",
+      "font_class": "-up",
       "unicode": "e624",
       "unicode_decimal": 58916
     },
@@ -92,7 +92,7 @@
     {
       "icon_id": "3315447",
       "name": "左",
-      "font_class": "zuo",
+      "font_class": "-left",
       "unicode": "e632",
       "unicode_decimal": 58930
     },
@@ -113,7 +113,7 @@
     {
       "icon_id": "7404568",
       "name": "下",
-      "font_class": "xia",
+      "font_class": "-down",
       "unicode": "e791",
       "unicode_decimal": 59281
     },
@@ -141,7 +141,7 @@
     {
       "icon_id": "18901550",
       "name": "右",
-      "font_class": "you",
+      "font_class": "-right",
       "unicode": "e608",
       "unicode_decimal": 58888
     },

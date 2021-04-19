@@ -5,7 +5,7 @@
       :size="24"
       @click="backHandler"
       class="header-back_icon"
-      name="iconzuo"
+      name="icon-left"
     ></RIcon>
     <span class="header-back_text"> {{ text }} </span>
   </div>

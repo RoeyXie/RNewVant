@@ -253,6 +253,7 @@ $list-width: 1 2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 30 40 50 60; // 循环用mar
   height: calc(100% - 56px);
   background: #f7f8fa;
   overflow-y: auto;
+  padding-bottom: 20px;
   &__content {
     overflow-y: auto;
     background: #ffffff;
@@ -278,4 +279,21 @@ $list-width: 1 2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 30 40 50 60; // 循环用mar
     font-size: 14px;
     line-height: 16px;
   }
+}
+
+[class*="r-hairline"]::after {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  box-sizing: border-box;
+  content: " ";
+  pointer-events: none;
+  border: 0 solid #ebedf0;
+  transform: scale(0.5);
+}
+
+.r-hairline--top-bottom::after {
+  border-width: 1px 0;
 }
