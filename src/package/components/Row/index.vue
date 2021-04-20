@@ -11,9 +11,11 @@ import {
   ref,
   watch,
   PropType,
+  ComponentPublicInstance,
 } from "vue";
-type FlexType = "center" | "end" | "space-between" | "space-around";
+import Col from "./Col/index.vue";
 
+type FlexType = "center" | "end" | "space-between" | "space-around";
 export default defineComponent({
   name: "r-row",
   props: {
@@ -28,13 +30,17 @@ export default defineComponent({
   },
   setup(props) {
     const state = reactive({
-      test: "",
+      test: [] as InstanceType<typeof Col>[],
     });
-    // const func = (i: any) => {
-    //   state.test = i;
-    //   console.log("state.test",state.test)
-    // };
-    // provide("foo", func);
+    const func = (i: InstanceType<typeof Col>) => {
+      state.test.push(i);
+    };
+    provide("foo", func);
+    onMounted(() => {
+      state.test.forEach((item) => {
+        item.show = true;
+      });
+    });
     const rowClass = () => {
       return [
         "r-row",
@@ -45,7 +51,7 @@ export default defineComponent({
     return { ...toRefs(state), ...toRefs(props), rowClass };
   },
   render() {
-    const { $slots, rowClass } = this;
+    const { $slots, rowClass, test } = this;
     // const
     const defaultSlots = $slots.default ? $slots.default() : "";
     return <div class={rowClass()}>{defaultSlots}</div>;

@@ -23,16 +23,19 @@ export default defineComponent({
   },
   setup(props, context) {
     const { attrs, emit, slots } = context;
+    const state = reactive({
+      show: false,
+    });
     const internalInstance = getCurrentInstance(); // works
     // eslint-disable-next-line @typescript-eslint/ban-types
-    // let onRefresh = inject<Function>("foo");
-    // if (onRefresh) onRefresh(internalInstance);
+    let onRefresh = inject<Function>("foo");
+    if (onRefresh) onRefresh(internalInstance?.proxy);
     let gutter = internalInstance?.parent?.props?.gutter || 0;
     gutter = +(gutter as string);
     const styleFn = () => {
       return { padding: "0 " + (gutter as number) / 2 + "px" };
     };
-    return { styleFn };
+    return { ...toRefs(state), styleFn };
   },
   render() {
     const { tag, $slots, span, offset, styleFn } = this;
