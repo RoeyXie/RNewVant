@@ -15,11 +15,45 @@
       <r-col offset="12" span="12">offset: 12, span: 12</r-col>
     </r-row>
 
-    <van-row gutter="20">
-      <van-col span="8">span: 8</van-col>
-      <van-col span="8">span: 8</van-col>
-      <van-col span="8">span: 8</van-col>
-    </van-row>
+    <r-row gutter="20">
+      <r-col span="8">span: 8</r-col>
+      <r-col span="8">span: 8</r-col>
+      <r-col span="8">span: 8</r-col>
+    </r-row>
+
+    <r-row flex>
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+    </r-row>
+
+    <!-- 居中 -->
+    <r-row flex justify="center">
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+    </r-row>
+
+    <!-- 右对齐 -->
+    <r-row flex justify="end">
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+    </r-row>
+
+    <!-- 两端对齐 -->
+    <r-row flex justify="space-between">
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+    </r-row>
+
+    <!-- 每个元素的两侧间隔相等 -->
+    <r-row flex justify="space-around">
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+      <r-col span="6">span: 6</r-col>
+    </r-row>
   </div>
 </template>
 

@@ -5,7 +5,9 @@ import {
   toRefs,
   onMounted,
   getCurrentInstance,
+  inject,
 } from "vue";
+
 export default defineComponent({
   name: "r-col",
   props: {
@@ -22,32 +24,50 @@ export default defineComponent({
   setup(props, context) {
     const { attrs, emit, slots } = context;
     const internalInstance = getCurrentInstance(); // works
-    console.log(internalInstance);
-    const state = reactive({});
-    const defaultSlots = slots.default ? slots.default() : "";
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    // let onRefresh = inject<Function>("foo");
+    // if (onRefresh) onRefresh(internalInstance);
+    let gutter = internalInstance?.parent?.props?.gutter || 0;
+    gutter = +(gutter as string);
+    const styleFn = () => {
+      return { padding: "0 " + (gutter as number) / 2 + "px" };
+    };
+    return { styleFn };
+  },
+  render() {
+    const { tag, $slots, span, offset, styleFn } = this;
+    const defaultSlots = $slots.default ? $slots.default() : "";
     const colClass = () => {
       return [
         "r-col",
-        `r-col-${props.span}`,
-        props.offset ? `r-col--offset-${props.offset}` : "",
+        `r-col-${span}`,
+        offset ? `r-col--offset-${offset}` : "",
       ];
     };
-    return () => {
-      const { tag } = props;
-      return <tag class={colClass()}>{defaultSlots}</tag>;
-    };
+    return (
+      <tag class={colClass()} style={styleFn()}>
+        {defaultSlots}
+      </tag>
+    );
   },
 });
 </script>
 <style lang="scss" scpoed>
 /* @import url() */
 .r-col {
+  float: left;
+  &:first-of-type {
+    padding-left: 0 !important;
+  }
+  &:last-of-type {
+    padding-right: 0 !important;
+  }
 }
 
 @for $i from 1 through 24 {
   .r-col-#{$i} {
     flex: 0 0 $i * (100% / 24);
-    max-width: $i * (100% / 24);
+    width: $i * (100% / 24);
   }
   .r-col--offset-#{$i} {
     margin-left: $i * (100% / 24);
