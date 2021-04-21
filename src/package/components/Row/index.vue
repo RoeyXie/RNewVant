@@ -4,14 +4,8 @@ import {
   reactive,
   toRefs,
   onMounted,
-  InjectionKey,
   provide,
-  ComputedRef,
-  ComponentInternalInstance,
-  ref,
-  watch,
   PropType,
-  ComponentPublicInstance,
 } from "vue";
 import Col from "./Col/index.vue";
 
@@ -51,7 +45,7 @@ export default defineComponent({
     return { ...toRefs(state), ...toRefs(props), rowClass };
   },
   render() {
-    const { $slots, rowClass, test } = this;
+    const { $slots, rowClass } = this;
     // const
     const defaultSlots = $slots.default ? $slots.default() : "";
     return <div class={rowClass()}>{defaultSlots}</div>;
@@ -70,6 +64,9 @@ export default defineComponent({
 
 .r-row-flex {
   display: flex;
+  &::after {
+    display: none;
+  }
 }
 
 .r-row-flex-end {

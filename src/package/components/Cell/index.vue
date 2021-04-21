@@ -23,7 +23,7 @@ export default defineComponent({
       default: "right",
     },
   },
-  setup(props, { attrs, emit, slots }) {
+  setup(props, { slots }) {
     const labelDom = props.label ? (
       <div class="r-cell__label">
         <span>{props.label}</span>

@@ -1,16 +1,28 @@
 <template>
   <div class="layoutView">
-    <r-row>
-      <r-col span="8">span: 8</r-col>
-      <r-col span="8">span: 8</r-col>
-      <r-col span="8">span: 8</r-col>
-    </r-row>
-
-    <r-row>
-      <r-col span="4">span: 4</r-col>
-      <r-col span="10" offset="4">offset: 4, span: 10</r-col>
-    </r-row>
-
+    <Header text="Layout"></Header>
+    <div class="demo-section">
+      <div
+        v-for="(list, index) in demoList"
+        :key="index"
+        class="demo-button-block"
+      >
+        <p class="demo-section-block__title">{{ list.title }}</p>
+        <r-row
+          v-for="(row, rowKey) in list.row"
+          v-bind="row.attrs"
+          :key="rowKey"
+        >
+          <r-col
+            v-for="(col, colKey) in row.col"
+            v-bind="col.attrs"
+            :key="colKey"
+            >{{ col.text }}</r-col
+          >
+        </r-row>
+      </div>
+    </div>
+    
     <r-row>
       <r-col offset="12" span="12">offset: 12, span: 12</r-col>
     </r-row>
@@ -62,8 +74,62 @@ import { defineComponent, reactive, toRefs, onMounted } from "vue";
 export default defineComponent({
   name: "LayoutView",
   props: {},
-  setup(props, { attrs, emit, slots }) {
-    const state = reactive({});
+  setup() {
+    const state = reactive({
+      demoList: [
+        {
+          title: "基础用法",
+          row: [
+            {
+              attrs: {},
+              col: [
+                {
+                  attrs: {
+                    span: "8",
+                  },
+                  text: "span: 8",
+                },
+                {
+                  attrs: {
+                    span: "8",
+                  },
+                  text: "span: 8",
+                },
+                {
+                  attrs: {
+                    span: "8",
+                  },
+                  text: "span: 8",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: "在列元素之间增加间距",
+          row: [
+            {
+              attrs: {},
+              col: [
+                {
+                  attrs: {
+                    span: "4",
+                  },
+                  text: "span: 4",
+                },
+                {
+                  attrs: {
+                    span: "10",
+                    offset: "4",
+                  },
+                  text: "offset: 4, span: 10",
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
     return { ...toRefs(state) };
   },
 });
