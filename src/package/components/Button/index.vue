@@ -86,7 +86,7 @@ export default defineComponent({
     const renderText = () => {
       const { text, loading, loadingText } = props;
       if (loading) return loadingText || text;
-      return slots.default ? slots.default() : "";
+      return slots.default ? slots.default() : text;
     };
     return () => {
       const { tag, disabled } = props;

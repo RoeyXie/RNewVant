@@ -33,6 +33,13 @@ export const menuList: MenuItem[] = [
         url: "/layout",
         list: [],
       },
+      {
+        menuId: 15,
+        parentId: 1,
+        name: "Overlay 遮罩层",
+        url: "/overlay",
+        list: [],
+      },
     ],
   },
 ];

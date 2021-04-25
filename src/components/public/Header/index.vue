@@ -3,7 +3,7 @@
   <div class="header flex-center">
     <RIcon
       :size="24"
-      @click="backHandler"
+      @click.stop="backHandler"
       class="header-back_icon"
       name="icon-left"
     ></RIcon>
