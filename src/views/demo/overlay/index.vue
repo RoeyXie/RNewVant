@@ -14,6 +14,16 @@
         <r-overlay :show="showOverlay" @click="showOverlay = false">
           <div class="wrapper">
             <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
+            <div class="block" @click.stop />
           </div>
         </r-overlay>
       </div>
@@ -39,16 +49,19 @@ export default defineComponent({
 /* @import url() */
 .overlay-view {
   .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100%;
+    overflow-y: auto;
   }
 
   .block {
     width: 120px;
     height: 120px;
     background-color: #fff;
+    margin: 0 auto;
+  }
+
+  .block:nth-child(odd) {
+    background-color: aliceblue;
   }
 }
 </style>
