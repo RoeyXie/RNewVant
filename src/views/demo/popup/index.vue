@@ -1,7 +1,8 @@
 <template>
   <div class="popup-view height-100-per">
     <r-cell is-link @click="showPopup">展示弹出层</r-cell>
-    <r-popup v-model:show="show">内容</r-popup>
+    <!-- <r-popup v-model:show="show" >内容</r-popup> -->
+    <r-popup v-model:show="show" position="top" :style="{ height: '30%' }" />
   </div>
 </template>
 

@@ -62,7 +62,16 @@ export default defineComponent({
     ) : (
       ""
     );
-    const afterIconDom = slots['right-icon'] ? slots['right-icon']() : arrowIconDom;
+    const afterIconDom = slots["right-icon"]
+      ? slots["right-icon"]()
+      : arrowIconDom;
+    const valueDom = slots.default ? (
+      <div class="r-cell__value">{slots.default()}</div>
+    ) : (
+      <div class="r-cell__value">
+        <span>{props.value}</span>
+      </div>
+    );
     const cellClass = () => {
       return [
         "r-cell",
@@ -76,9 +85,7 @@ export default defineComponent({
       <div class={cellClass()}>
         {beforeIconDom}
         {titleDom}
-        <div class="r-cell__value">
-          <span>{props.value}</span>
-        </div>
+        {valueDom}
         {afterIconDom}
       </div>
     );
