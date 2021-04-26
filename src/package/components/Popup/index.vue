@@ -17,6 +17,11 @@ export default defineComponent({
     zIndex: [Number, String],
     show: Boolean,
     duration: [Number, String],
+    closeable: Boolean,
+    closeIcon: {
+      type: String,
+      default: "iconcha",
+    },
     overlay: {
       type: Boolean,
       default: true,
@@ -96,6 +101,17 @@ export default defineComponent({
         );
       }
     };
+    const closeDom = () => {
+      return props.closeable ? (
+        <r-icon
+          name={props.closeIcon}
+          color="#969799"
+          size={15}
+        ></r-icon>
+      ) : (
+        ""
+      );
+    };
     const popupDom = () => {
       return (
         <div
@@ -104,6 +120,7 @@ export default defineComponent({
           style={state.popupStyle}
         >
           {slots.default?.()}
+          {closeDom()}
         </div>
       );
     };

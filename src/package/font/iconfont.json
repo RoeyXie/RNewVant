@@ -6,6 +6,13 @@
   "description": "用于vant练习",
   "glyphs": [
     {
+      "icon_id": "2604472",
+      "name": "关闭",
+      "font_class": "guanbicircle",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
       "icon_id": "13519434",
       "name": "loading",
       "font_class": "iconloadingspinner",
