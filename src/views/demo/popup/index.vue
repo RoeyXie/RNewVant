@@ -1,57 +1,137 @@
 <template>
   <div class="popup-view height-100-per">
-    <r-cell is-link @click="showPopup">展示弹出层</r-cell>
-    <r-popup v-model:show="show">内容</r-popup>
-
-    <r-cell is-link @click="showPopup2">顶部弹出</r-cell>
-    <r-popup v-model:show="show2" position="top" :style="{ height: '30%' }" />
-
-    <r-cell is-link @click="showPopup3">底部部弹出</r-cell>
-    <r-popup v-model:show="show3" position="bottom" :style="{ height: '30%' }" />
-
-    <r-cell is-link @click="showPopup4">左边弹出</r-cell>
-    <r-popup v-model:show="show4" position="left" :style="{ width: '30%' }" />
-
-    <r-cell is-link @click="showPopup5">右边弹出</r-cell>
-    <r-popup v-model:show="show5" position="right" :style="{ width: '30%' }" />
+    <Header text="Popup"></Header>
+    <div class="demo-section p-l-20 p-r-20">
+      <div
+        v-for="(demo, index) in demoList"
+        :key="index"
+        class="demo-button-block"
+      >
+        <p class="demo-section-block__title">{{ demo.title }}</p>
+        <div class="demo-section-block__card">
+          <r-cell
+            v-for="(item, key) in demo.list"
+            :key="key"
+            is-link
+            @click="showPopup(item)"
+            >{{ item.cellText }}</r-cell
+          >
+        </div>
+      </div>
+    </div>
+    <r-popup v-model:show="show" v-bind="attr">{{ popupText }}</r-popup>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, onMounted } from "vue";
+import { defineComponent, reactive, toRefs } from "vue";
 export default defineComponent({
   name: "PopUpView",
   props: {},
-  setup(props, { attrs, emit, slots }) {
+  setup() {
     const state = reactive({
+      demoList: [
+        {
+          title: "基础用法",
+          list: [
+            {
+              key: "basic",
+              cellText: "展示弹出层",
+              popupText: "内容",
+              attr: {
+                style: {
+                  padding: "30px 50px",
+                },
+              },
+            },
+          ],
+        },
+        {
+          title: "弹出位置",
+          list: [
+            {
+              key: "top",
+              cellText: "顶部弹出",
+              attr: {
+                position: "top",
+                style: { height: "30%" },
+              },
+            },
+            {
+              key: "bottom",
+              cellText: "底部弹出",
+              attr: {
+                position: "bottom",
+                style: { height: "30%" },
+              },
+            },
+            {
+              key: "left",
+              cellText: "左侧弹出",
+              attr: {
+                position: "left",
+                style: { width: "30%" },
+              },
+            },
+            {
+              key: "right",
+              cellText: "右侧弹出",
+              attr: {
+                position: "right",
+                style: { width: "30%" },
+              },
+            },
+          ],
+        },
+        {
+          title: "关闭图标",
+          list: [
+            {
+              key: "close",
+              cellText: "关闭图标",
+              attr: {
+                position: "bottom",
+                style: { height: "30%" },
+                closeable: true,
+              },
+            },
+            {
+              key: "closeIcon",
+              cellText: "自定义图标",
+              attr: {
+                position: "bottom",
+                style: { height: "30%" },
+                closeable: true,
+                closeIcon: "iconguanbicircle",
+              },
+            },
+            {
+              key: "closePosition",
+              cellText: "图标位置",
+              attr: {
+                position: "bottom",
+                style: { height: "30%" },
+                closeable: true,
+                closeIconPosition: "top-left",
+              },
+            },
+          ],
+        },
+      ],
       show: false,
-      show2: false,
-      show3: false,
-      show4: false,
-      show5: false,
+      attr: {},
+      popupText: "",
     });
-    const showPopup = () => {
+    const showPopup = (e: any) => {
+      // console.log("e", e);
+      const { attr, popupText } = e;
+      state.attr = attr;
+      state.popupText = popupText;
       state.show = true;
-    };
-    const showPopup2 = () => {
-      state.show2 = true;
-    };
-    const showPopup3 = () => {
-      state.show3 = true;
-    };
-    const showPopup4 = () => {
-      state.show4 = true;
-    };
-    const showPopup5 = () => {
-      state.show5 = true;
     };
     return {
       ...toRefs(state),
       showPopup,
-      showPopup2,
-      showPopup3,
-      showPopup4,
-      showPopup5,
     };
   },
 });

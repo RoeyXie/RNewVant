@@ -10,6 +10,12 @@ import {
 } from "vue";
 let globalZIndex = 2000;
 type PositionType = "top" | "right" | "bottom" | "left" | "center";
+type IconPositionType =
+  | "top-right"
+  | "top-left"
+  | "bottom-left"
+  | "lebottom-rightft";
+
 export default defineComponent({
   name: "r-popup",
   props: {
@@ -35,9 +41,13 @@ export default defineComponent({
       type: String as PropType<PositionType>,
       default: "center",
     },
+    closeIconPosition: {
+      type: String as PropType<IconPositionType>,
+      default: "top-right",
+    },
     style: Object as PropType<CSSProperties>,
   },
-  setup(props, { attrs, emit, slots }) {
+  setup(props, { emit, slots }) {
     const state = reactive({
       zIndex: globalZIndex,
       opened: false,
@@ -50,6 +60,9 @@ export default defineComponent({
         };
         style.zIndex = state.zIndex;
         return style;
+      }),
+      IconClass: computed(() => {
+        return ["r-popup-icon", `r-popup-icon__${props.closeIconPosition}`];
       }),
     });
     const open = () => {
@@ -106,7 +119,9 @@ export default defineComponent({
         <r-icon
           name={props.closeIcon}
           color="#969799"
-          size={15}
+          size={22}
+          onClick={onClickCloseIcon}
+          class={state.IconClass}
         ></r-icon>
       ) : (
         ""
@@ -145,7 +160,7 @@ export default defineComponent({
   overflow-y: auto;
   background-color: #fff;
   transition: transform 0.3s;
-  padding: 30px 50px;
+  // padding: 30px 50px;
 }
 
 .r-popup--center {
@@ -176,5 +191,25 @@ export default defineComponent({
   top: 0;
   right: 0;
   height: 100%;
+}
+
+.r-popup-icon {
+  position: absolute;
+  &__top-right {
+    top: 16px;
+    right: 16px;
+  }
+  &__top-left {
+    top: 16px;
+    left: 16px;
+  }
+  &__bottom-right {
+    bottom: 16px;
+    right: 16px;
+  }
+  &__bottom-left {
+    bottom: 16px;
+    left: 16px;
+  }
 }
 </style>
