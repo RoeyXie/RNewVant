@@ -7,6 +7,7 @@ import {
   toRefs,
   watch,
   CSSProperties,
+  Transition
 } from "vue";
 let globalZIndex = 2000;
 type PositionType = "top" | "right" | "bottom" | "left" | "center";
@@ -129,14 +130,16 @@ export default defineComponent({
     };
     const popupDom = () => {
       return (
-        <div
-          v-show={props.show}
-          class={state.popupClass}
-          style={state.popupStyle}
-        >
-          {slots.default?.()}
-          {closeDom()}
-        </div>
+        <Transition name="fade">
+          <div
+            v-show={props.show}
+            class={state.popupClass}
+            style={state.popupStyle}
+          >
+            {slots.default?.()}
+            {closeDom()}
+          </div>
+        </Transition>
       );
     };
     return { ...toRefs(state), overLayDom, popupDom };
@@ -154,6 +157,16 @@ export default defineComponent({
 </script>
 <style lang="scss" scpoed>
 /* @import url() */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .r-popup {
   position: fixed;
   max-height: 100%;
