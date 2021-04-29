@@ -47,6 +47,13 @@ export const menuList: MenuItem[] = [
         url: "/popup",
         list: [],
       },
+      {
+        menuId: 16,
+        parentId: 1,
+        name: "Rate 评分",
+        url: "/rate",
+        list: [],
+      },
     ],
   },
 ];

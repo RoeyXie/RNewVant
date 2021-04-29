@@ -7,8 +7,10 @@ import {
   toRefs,
   watch,
   CSSProperties,
-  Transition
+  Transition,
 } from "vue";
+import { useLazyRender } from "@/package/utils/use-lazy-render";
+
 let globalZIndex = 2000;
 type PositionType = "top" | "right" | "bottom" | "left" | "center";
 type IconPositionType =
@@ -128,11 +130,12 @@ export default defineComponent({
         ""
       );
     };
-    const popupDom = () => {
+    const lazyRender = useLazyRender(() => props.show);
+    const popupDom = lazyRender(() => {
       return (
         <Transition name="fade">
           <div
-            v-show={props.show}
+            v-show={props.show} // 为啥用 v-if 会报 created 错误
             class={state.popupClass}
             style={state.popupStyle}
           >
@@ -141,7 +144,7 @@ export default defineComponent({
           </div>
         </Transition>
       );
-    };
+    });
     return { ...toRefs(state), overLayDom, popupDom };
   },
   render() {
