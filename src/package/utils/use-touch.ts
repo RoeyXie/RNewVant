@@ -1,38 +1,38 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const MIN_DISTANCE = 10;
 
-type Direction = '' | 'vertical' | 'horizontal';
+type Direction = "" | "vertical" | "horizontal";
 
 function getDirection(x: number, y: number) {
   if (x > y && x > MIN_DISTANCE) {
-    return 'horizontal';
+    return "horizontal";
   }
   if (y > x && y > MIN_DISTANCE) {
-    return 'vertical';
+    return "vertical";
   }
-  return '';
+  return "";
 }
 
-export function useTouch() {
+export const useTouch = () => {
   const startX = ref(0);
   const startY = ref(0);
   const deltaX = ref(0);
   const deltaY = ref(0);
   const offsetX = ref(0);
   const offsetY = ref(0);
-  const direction = ref<Direction>('');
+  const direction = ref<Direction>("");
 
-  const isVertical = () => direction.value === 'vertical';
-  const isHorizontal = () => direction.value === 'horizontal';
+  const isVertical = () => direction.value === "vertical";
+  const isHorizontal = () => direction.value === "horizontal";
 
   const reset = () => {
     deltaX.value = 0;
     deltaY.value = 0;
     offsetX.value = 0;
     offsetY.value = 0;
-    direction.value = '';
+    direction.value = "";
   };
 
   const start = ((event: TouchEvent) => {
@@ -67,4 +67,4 @@ export function useTouch() {
     isVertical,
     isHorizontal,
   };
-}
+};

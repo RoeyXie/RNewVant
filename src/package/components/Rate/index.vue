@@ -1,7 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 <script lang="tsx">
-/* eslint-disable no-undef */
 import { defineComponent, reactive, toRefs, computed } from "vue";
+import { useRefs } from "../../utils/use-refs";
+import { useTouch } from "../../utils/use-touch";
 type RateStatus = "full" | "half" | "void";
+interface RangesInterface {
+  left: number;
+  score: number;
+}
 function getRateStatus(
   value: number,
   index: number,
@@ -39,6 +45,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    touchable: {
+      type: Boolean,
+      default: true,
+    },
     icon: {
       type: String,
       default: "iconyduixingxingshixin",
@@ -60,9 +70,18 @@ export default defineComponent({
             getRateStatus(props.modelValue, i + 1, props.allowHalf)
           )
       ),
+      untouchable: computed(() => {
+        return props.readonly || props.disabled || !props.touchable;
+      }),
+      unchangeable: computed(() => {
+        return props.readonly || props.disabled;
+      }),
     });
+    const [itemRefs, setItemRefs] = useRefs();
+    const touch = useTouch();
+    let ranges: RangesInterface[] = [];
     const select = (score: number) => {
-      if (props.disabled) return;
+      if (state.unchangeable) return;
       emit("update:modelValue", score);
       emit("change", score);
     };
@@ -85,9 +104,6 @@ export default defineComponent({
       const score = index + 1;
       const name = isFull ? props.icon : props.voidIcon;
       const halfName = !isVoid ? props.icon : props.voidIcon;
-      // const style: CSSProperties = {
-      //   color: isVoid ? props.voidColor : isFull ? props.color : "",
-      // };
       let halfIcon = props.allowHalf ? (
         <r-icon
           classPrefix={halfIconClass}
@@ -105,7 +121,7 @@ export default defineComponent({
         ""
       );
       let icon = (
-        <div class="r-rate__item">
+        <div ref={setItemRefs(index)} class="r-rate__item">
           <r-icon
             classPrefix={iconClass}
             name={name}
@@ -122,11 +138,57 @@ export default defineComponent({
       );
       return icon;
     };
-    return { ...toRefs(state), select, renderStar };
+
+    const getScoreByPosition = (x: number): number => {
+      x = x || 0;
+      for (let i = ranges.length - 1; i > 0; i--) {
+        const item = ranges[i];
+        if (x > item.left) {
+          return item.score;
+        }
+      }
+      return props.allowHalf ? 0.5 : 1;
+    };
+
+    const onTouchStart = (event: TouchEvent) => {
+      if (state.untouchable) return;
+      touch.start(event);
+      const rects = itemRefs.value.map((item) => item.getBoundingClientRect());
+      ranges = [];
+      rects.forEach((item, index) => {
+        if (props.allowHalf) {
+          ranges.push(
+            { left: item.left, score: index + 0.5 },
+            { left: item.left + item.width / 2, score: index + 1 }
+          );
+        } else {
+          ranges.push({ left: item.left, score: index + 1 });
+        }
+      });
+    };
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (state.untouchable) return;
+      touch.move(event);
+      const clientX = event.touches[0].clientX;
+      event.preventDefault();
+      select(getScoreByPosition(clientX));
+    };
+    
+    return { ...toRefs(state), select, renderStar, onTouchStart, onTouchMove };
   },
   render() {
-    const { list, renderStar } = this;
-    return <div class="r-rate"> {list.map(renderStar)}</div>;
+    const { list, renderStar, onTouchStart, onTouchMove } = this;
+    return (
+      <div
+        role="radio"
+        class="r-rate"
+        onTouchstart={onTouchStart}
+        onTouchmove={onTouchMove}
+      >
+        {list.map(renderStar)}
+      </div>
+    );
   },
 });
 </script>
