@@ -6,6 +6,34 @@
   "description": "用于vant练习",
   "glyphs": [
     {
+      "icon_id": "356524",
+      "name": "爱心",
+      "font_class": "aixin",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "670196",
+      "name": "YDUI-星星(空心)",
+      "font_class": "yduixingxingkongxin",
+      "unicode": "e6a4",
+      "unicode_decimal": 59044
+    },
+    {
+      "icon_id": "670197",
+      "name": "YDUI-星星(实心)",
+      "font_class": "yduixingxingshixin",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
+      "icon_id": "1110402",
+      "name": "爱心_线",
+      "font_class": "aixinxian",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
       "icon_id": "2604472",
       "name": "关闭",
       "font_class": "guanbicircle",

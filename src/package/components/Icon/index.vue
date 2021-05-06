@@ -1,10 +1,8 @@
 <template>
-  <div @click="clickHandler" class="r-icon">
-    <i :style="fontStyle" :class="iconClass">
-      <img v-if="showImg" :src="name" class="r-iconfont__image" />
-      <div v-if="dot || badge" :class="dotClass">{{ badge }}</div>
-    </i>
-  </div>
+  <i :style="fontStyle" @click="clickHandler" class="r-icon" :class="iconClass">
+    <img v-if="showImg" :src="name" class="r-iconfont__image" />
+    <div v-if="dot || badge" :class="dotClass">{{ badge }}</div>
+  </i>
 </template>
 
 <script lang="tsx">
@@ -22,6 +20,7 @@ export default defineComponent({
     size: [Number, String],
     badge: [Number, String],
     color: String,
+    classPrefix: [String, Array],
   },
   setup(props, { emit }) {
     const state = reactive({
@@ -41,7 +40,7 @@ export default defineComponent({
         }
         return {
           fontSize,
-          color: props.color || "#323233",
+          color: props.color,
           width: fontSize,
           height: fontSize,
         };
@@ -52,8 +51,8 @@ export default defineComponent({
     });
     const iconClass = computed(() => {
       return !state.showImg
-        ? ["r-iconfont", "iconfont", props.name]
-        : "r-iconfont imgfont";
+        ? ["r-iconfont", "iconfont", props.name, props.classPrefix]
+        : ["r-iconfont", "imgfont", props.classPrefix];
     });
     const clickHandler = (e: MouseEvent) => {
       emit("click", e);
@@ -63,7 +62,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-/* @import url() */
+@import "@/package/styles/var.scss";
 .r-icon {
   display: flex;
   align-items: center;
@@ -71,7 +70,7 @@ export default defineComponent({
     position: relative;
     display: inline-block;
     line-height: 1;
-    // margin: 16px 0 16px;
+    color: $font-color;
     &__image {
       width: 1em;
       height: 1em;
@@ -83,14 +82,14 @@ export default defineComponent({
       box-sizing: border-box;
       min-width: 16px;
       padding: 0 3px;
-      color: #fff;
+      color: $white-color;
       font-weight: 500;
       font-size: 12px;
       font-family: -apple-system-font, Helvetica Neue, Arial, sans-serif;
       line-height: 1.2;
       text-align: center;
-      background-color: #ee0a24;
-      border: 1px solid #fff;
+      background-color:$warning-color;
+      border: 1px solid $white-color;
       border-radius: 16px;
       -webkit-transform: translate(50%, -50%);
       transform: translate(50%, -50%);
@@ -101,7 +100,7 @@ export default defineComponent({
       width: 8px;
       min-width: 0;
       height: 8px;
-      background-color: #ee0a24;
+      background-color:$warning-color;
       border-radius: 100%;
     }
   }

@@ -43,7 +43,7 @@ export default defineComponent({
   background-color: #fff;
   position: relative;
   &-back_icon {
-    position: absolute;
+    position: absolute !important;
     top: 16px;
     left: 16px;
   }
