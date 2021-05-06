@@ -48,10 +48,17 @@ export const menuList: MenuItem[] = [
         list: [],
       },
       {
-        menuId: 16,
+        menuId: 17,
         parentId: 1,
         name: "Rate 评分",
         url: "/rate",
+        list: [],
+      },
+      {
+        menuId: 18,
+        parentId: 1,
+        name: "Stepper 步进器",
+        url: "/stepper",
         list: [],
       },
     ],
