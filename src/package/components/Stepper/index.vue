@@ -1,5 +1,6 @@
 <script lang="tsx">
 import { defineComponent, reactive, toRefs, onMounted } from "vue";
+import { formatNumber } from "../../utils/utils";
 export default defineComponent({
   name: "RStepper",
   props: {},
@@ -30,14 +31,21 @@ export default defineComponent({
       );
     };
 
-    return { ...toRefs(state), leftBtn, rightBtn };
+    const handlerInput = (event: Event)=>{
+      const input =  event.target as HTMLInputElement
+      let { value } = input
+      let formatted = formatNumber(String(value));
+      console.log("formatted",formatted)
+    }
+
+    return { ...toRefs(state), leftBtn, rightBtn,handlerInput };
   },
   render() {
-    const { leftBtn, rightBtn } = this;
+    const { leftBtn, rightBtn,handlerInput } = this;
     return (
       <div class="r-stepper">
         {leftBtn()}
-        <input class="r-stepper__input" inputmode="decimal" />
+        <input onInput={handlerInput} class="r-stepper__input" inputmode="decimal" />
         {rightBtn()}
       </div>
     );

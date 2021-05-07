@@ -39,7 +39,4 @@ export default defineComponent({
     line-height: 16px;
   }
 }
-
-.r-cell-group-border {
-}
 </style>
