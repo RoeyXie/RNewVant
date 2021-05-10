@@ -1,5 +1,5 @@
 <template>
-  <i :style="fontStyle" @click="clickHandler" class="r-icon" :class="iconClass">
+  <i :style="fontStyle" class="r-icon" :class="iconClass">
     <img v-if="showImg" :src="name" class="r-iconfont__image" />
     <div v-if="dot || badge" :class="dotClass">{{ badge }}</div>
   </i>
@@ -54,10 +54,10 @@ export default defineComponent({
         ? ["r-iconfont", "iconfont", props.name, props.classPrefix]
         : ["r-iconfont", "imgfont", props.classPrefix];
     });
-    const clickHandler = (e: MouseEvent) => {
-      emit("click", e);
-    };
-    return { ...toRefs(state), iconClass, clickHandler };
+    // const clickHandler = (e: MouseEvent) => {
+    //   emit("click", e);
+    // };
+    return { ...toRefs(state), iconClass };
   },
 });
 </script>

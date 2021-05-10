@@ -5,6 +5,31 @@ export default defineComponent({
   name: "RStepper",
   props: {
     modelValue: {
+      type: [Number, String],
+      default: 0,
+    },
+    step: {
+      type: [Number, String],
+      default: 1,
+    },
+    max: Number,
+    min: {
+      type: Number,
+      default: 1,
+    },
+    integer: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    disableInput: {
+      type: Boolean,
+      default: false,
+    },
+    decimalLength: {
       type: Number,
       default: 0,
     },
@@ -13,21 +38,56 @@ export default defineComponent({
     const state = reactive({
       currentValue: 0,
     });
-    watch(
-      () => props.modelValue,
-      (value) => {
-        console.log("执行watch", value, state.currentValue);
-        state.currentValue = value;
+    const step = +props.step;
+    const powper = (value: number) => {
+      let sq1;
+      try {
+        sq1 = value.toString().split(".")[1].length;
+      } catch (e) {
+        sq1 = 0;
       }
-    );
+      const m = Math.pow(10, sq1);
+      return m;
+    };
+    const minus = () => {
+      let power = powper(state.currentValue);
+      return (state.currentValue * power - step * power) / power;
+    };
+    const add = () => {
+      let power = powper(state.currentValue);
+      return (state.currentValue * power + step * power) / power;
+    };
+    const decreaseHandler = () => {
+      if (props.disabled) return;
+      let value = beforeChange(minus());
+      emit("update:modelValue", value);
+    };
+    const increaseHandler = () => {
+      if (props.disabled) return;
+      let value = beforeChange(add());
+      emit("update:modelValue", value);
+    };
+    const beforeChange = (value: number): number => {
+      let result = value;
+      if (value < props.min) result = props.min;
+      if (props.max && value > props.max) result = props.max;
+      if (props.integer) result = parseInt(result.toString());
+      // if (props.decimalLength) result = parseInt(result.toString());
+      return result;
+    };
     const leftBtn = () => {
       return (
         <span class="r-stepper__iconbox r-stepper__icon--des">
           <r-icon
             name="iconjian"
-            color=""
+            color={
+              props.disabled || (props.min && props.min === state.currentValue)
+                ? "#c8c9cc"
+                : ""
+            }
             size={20}
             class="r-stepper__icon"
+            onClick={decreaseHandler}
           ></r-icon>
         </span>
       );
@@ -37,35 +97,62 @@ export default defineComponent({
         <span class="r-stepper__iconbox r-stepper__icon--inc">
           <r-icon
             name="iconjia"
-            color=""
+            color={
+              props.disabled || (props.max && props.max === state.currentValue)
+                ? "#c8c9cc"
+                : ""
+            }
             size={20}
             class="r-stepper__icon"
+            onClick={increaseHandler}
           ></r-icon>
         </span>
       );
     };
-
     const handlerInput = (event: Event) => {
       const input = event.target as HTMLInputElement;
       let { value } = input;
-      let formatted = +formatNumber(String(value));
+      let formatted = formatNumber(String(value), !props.integer);
       // console.log("formatted", formatted);
-      state.currentValue = formatted;
-      emit("update:modelValue", formatted);
+      input.value = formatted;
+      state.currentValue = +formatted;
+      emit("update:modelValue", +formatted);
     };
-
-    return { ...toRefs(state), leftBtn, rightBtn, handlerInput };
+    const inputClass = () => {
+      return [
+        "r-stepper__input",
+        props.disabled ? "r-stepper__input--disabled" : "",
+      ];
+    };
+    watch(
+      () => props.modelValue,
+      (value) => {
+        state.currentValue = beforeChange(+value);
+      },
+      {
+        immediate: true,
+      }
+    );
+    return { ...toRefs(state), leftBtn, rightBtn, handlerInput, inputClass };
   },
   render() {
-    const { leftBtn, rightBtn, handlerInput } = this;
+    const {
+      leftBtn,
+      rightBtn,
+      handlerInput,
+      inputClass,
+      disabled,
+      disableInput,
+    } = this;
     return (
       <div class="r-stepper">
         {leftBtn()}
         <input
           onInput={handlerInput}
-          class="r-stepper__input"
+          class={inputClass()}
           inputmode="decimal"
           value={this.currentValue}
+          disabled={disabled || disableInput}
         />
         {rightBtn()}
       </div>
@@ -78,7 +165,7 @@ export default defineComponent({
 .r-stepper {
   &__input {
     box-sizing: border-box;
-    width: 150px;
+    width: 32px;
     height: 28px;
     margin: 0 2px;
     padding: 0;
@@ -92,6 +179,10 @@ export default defineComponent({
     border-width: 1px 0;
     border-radius: 0;
     -webkit-appearance: none;
+  }
+  &__input--disabled {
+    background-color: #f2f3f5;
+    color: #c8c9cc;
   }
   &__iconbox {
     display: inline-block;
@@ -118,6 +209,12 @@ export default defineComponent({
   &__icon--inc {
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
+  }
+  &__icon--des--disabled,
+  &__icon--inc--disabled {
+    color: #c8c9cc;
+    background-color: #f7f8fa;
+    cursor: not-allowed;
   }
 }
 </style>
