@@ -24,69 +24,72 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const labelDom = props.label ? (
-      <div class="r-cell__label">
-        <span>{props.label}</span>
-      </div>
-    ) : (
-      ""
-    );
-    const titleDom = slots.title ? (
-      <div class="r-cell__title">{slots.title()}</div>
-    ) : props.title || props.label ? (
-      <div class="r-cell__title">
-        <span>{props.title}</span>
-        {labelDom}
-      </div>
-    ) : (
-      ""
-    );
-    const beforeIconDom = props.icon ? (
-      <r-icon
-        name={props.icon}
-        color="#323233"
-        size={18}
-        class="m-r-5"
-      ></r-icon>
-    ) : (
-      ""
-    );
+    const labelDom = () => {
+      return props.label ? (
+        <div class="r-cell__label">
+          <span>{props.label}</span>
+        </div>
+      ) : (
+        ""
+      );
+    };
+    const titleDom = () => {
+      return slots.title ? (
+        <div class="r-cell__title">{slots.title()}</div>
+      ) : props.title || props.label ? (
+        <div class="r-cell__title">
+          <span>{props.title}</span>
+          {labelDom()}
+        </div>
+      ) : (
+        ""
+      );
+    };
+    const beforeIconDom = () => {
+      return props.icon ? (
+        <r-icon
+          name={props.icon}
+          color="#323233"
+          size={18}
+          class="m-r-5"
+        ></r-icon>
+      ) : (
+        ""
+      );
+    };
     const arrowIcon = `icon-${props.arrowDirection}`;
-    const arrowIconDom = props.isLink ? (
-      <r-icon
-        name={arrowIcon}
-        color="#969799"
-        size={15}
-        class="m-l-10"
-      ></r-icon>
-    ) : (
-      ""
-    );
-    const afterIconDom = slots["right-icon"]
-      ? slots["right-icon"]()
-      : arrowIconDom;
-    const valueDom = slots.default ? (
-      <div class="r-cell__value">{slots.default()}</div>
-    ) : (
-      <div class="r-cell__value">
-        <span>{props.value}</span>
-      </div>
-    );
+    const arrowIconDom = () => {
+      return props.isLink ? (
+        <r-icon
+          name={arrowIcon}
+          color="#969799"
+          size={15}
+          class="m-l-10"
+        ></r-icon>
+      ) : (
+        ""
+      );
+    };
+    const afterIconDom = () => {
+      return slots["right-icon"] ? slots["right-icon"]() : arrowIconDom();
+    };
     const cellClass = () => {
       return [
         "r-cell",
         // "r-hairline--top-bottom",
         props.size ? `r-cell-${props.size}` : "",
-        titleDom ? "" : "r-cell-only-value",
+        titleDom() ? "" : "r-cell-only-value",
         props.center ? "r-cell-center" : "",
       ];
     };
     return () => (
       <div class={cellClass()}>
-        {beforeIconDom}
-        {titleDom}
-        {valueDom}
-        {afterIconDom}
+        {beforeIconDom()}
+        {titleDom()}
+        <div class="r-cell__value">
+          {slots.default ? slots.default() : <span>{props.value}</span>}
+        </div>
+        {afterIconDom()}
       </div>
     );
   },

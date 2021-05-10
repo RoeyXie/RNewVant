@@ -15,14 +15,18 @@ export default defineComponent({
         return ["r-cell-group", props.border ? "r-hairline--top-bottom" : ""];
       }),
     });
-    const defaultSlot = slots.default ? slots.default() : null;
-    const titleDom = props.title ? (
-      <h1 class="r-cell-group__title">{props.title}</h1>
-    ) : null;
+    const defaultSlot = () => {
+      return slots.default ? slots.default() : null;
+    };
+    const titleDom = () => {
+      return props.title ? (
+        <h1 class="r-cell-group__title">{props.title}</h1>
+      ) : null;
+    };
     return () => (
       <div>
-        {titleDom}
-        <div class={state.cellGroupClass}>{defaultSlot}</div>
+        {titleDom()}
+        <div class={state.cellGroupClass}>{defaultSlot()}</div>
       </div>
     );
   },

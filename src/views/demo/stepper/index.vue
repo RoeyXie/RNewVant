@@ -13,7 +13,7 @@ export default defineComponent({
   props: {},
   setup(props, { attrs, emit, slots }) {
     const state = reactive({
-      value: 1,
+      value: 12,
     });
     return { ...toRefs(state) };
   },

@@ -16,7 +16,7 @@ export default defineComponent({
     duration: [Number, String],
     customStyle: Object as PropType<CSSProperties>,
   },
-  setup(props, { emit, slots }) {
+  setup(props, { emit }) {
     const state = reactive({
       overlayClass: computed(() => {
         return ["r-overlay", props.className];
@@ -25,8 +25,7 @@ export default defineComponent({
     const clickHandler = (e: MouseEvent) => {
       emit("click", e);
     };
-    const slotDefault = slots.default ? slots.default() : "";
-    return { ...toRefs(state), ...toRefs(props), clickHandler, slotDefault };
+    return { ...toRefs(state), ...toRefs(props), clickHandler };
   },
   render() {
     const {
@@ -36,7 +35,7 @@ export default defineComponent({
       overlayClass,
       customStyle,
       clickHandler,
-      slotDefault,
+      $slots,
     } = this;
     const style: CSSProperties = {
       ...customStyle,
@@ -52,7 +51,7 @@ export default defineComponent({
         style={style}
         onClick={clickHandler}
       >
-        {slotDefault}
+        {$slots.default ? $slots.default() : ""}
       </div>
     );
   },

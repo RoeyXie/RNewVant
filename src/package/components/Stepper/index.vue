@@ -1,11 +1,25 @@
 <script lang="tsx">
-import { defineComponent, reactive, toRefs, onMounted } from "vue";
+import { defineComponent, reactive, toRefs, onMounted, watch } from "vue";
 import { formatNumber } from "../../utils/utils";
 export default defineComponent({
   name: "RStepper",
-  props: {},
+  props: {
+    modelValue: {
+      type: Number,
+      default: 0,
+    },
+  },
   setup(props, { attrs, emit, slots }) {
-    const state = reactive({});
+    const state = reactive({
+      currentValue: 0,
+    });
+    watch(
+      () => props.modelValue,
+      (value) => {
+        console.log("执行watch", value, state.currentValue);
+        state.currentValue = value;
+      }
+    );
     const leftBtn = () => {
       return (
         <span class="r-stepper__iconbox r-stepper__icon--des">
@@ -31,21 +45,28 @@ export default defineComponent({
       );
     };
 
-    const handlerInput = (event: Event)=>{
-      const input =  event.target as HTMLInputElement
-      let { value } = input
-      let formatted = formatNumber(String(value));
-      console.log("formatted",formatted)
-    }
+    const handlerInput = (event: Event) => {
+      const input = event.target as HTMLInputElement;
+      let { value } = input;
+      let formatted = +formatNumber(String(value));
+      // console.log("formatted", formatted);
+      state.currentValue = formatted;
+      emit("update:modelValue", formatted);
+    };
 
-    return { ...toRefs(state), leftBtn, rightBtn,handlerInput };
+    return { ...toRefs(state), leftBtn, rightBtn, handlerInput };
   },
   render() {
-    const { leftBtn, rightBtn,handlerInput } = this;
+    const { leftBtn, rightBtn, handlerInput } = this;
     return (
       <div class="r-stepper">
         {leftBtn()}
-        <input onInput={handlerInput} class="r-stepper__input" inputmode="decimal" />
+        <input
+          onInput={handlerInput}
+          class="r-stepper__input"
+          inputmode="decimal"
+          value={this.currentValue}
+        />
         {rightBtn()}
       </div>
     );
@@ -57,7 +78,7 @@ export default defineComponent({
 .r-stepper {
   &__input {
     box-sizing: border-box;
-    width: 32px;
+    width: 150px;
     height: 28px;
     margin: 0 2px;
     padding: 0;

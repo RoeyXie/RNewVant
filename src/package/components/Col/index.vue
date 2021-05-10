@@ -39,7 +39,9 @@ export default defineComponent({
   },
   render() {
     const { tag, $slots, span, offset, styleFn } = this;
-    const defaultSlots = $slots.default ? $slots.default() : "";
+    const defaultSlots = ()=>{
+      return $slots.default ? $slots.default() : "";
+    }
     const colClass = () => {
       return [
         "r-col",
@@ -49,7 +51,7 @@ export default defineComponent({
     };
     return (
       <tag class={colClass()} style={styleFn()}>
-        {defaultSlots}
+        {defaultSlots()}
       </tag>
     );
   },

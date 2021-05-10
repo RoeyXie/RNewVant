@@ -104,22 +104,24 @@ export default defineComponent({
       const score = index + 1;
       const name = isFull ? props.icon : props.voidIcon;
       const halfName = !isVoid ? props.icon : props.voidIcon;
-      let halfIcon = props.allowHalf ? (
-        <r-icon
-          classPrefix={halfIconClass}
-          name={halfName}
-          color={
-            !props.disabled ? (!isVoid ? props.color : props.voidColor) : ""
-          }
-          size={20}
-          onClick={() => {
-            select(score - 0.5);
-          }}
-          class="r-rate__icon--half"
-        ></r-icon>
-      ) : (
-        ""
-      );
+      let halfIcon = () => {
+        return props.allowHalf ? (
+          <r-icon
+            classPrefix={halfIconClass}
+            name={halfName}
+            color={
+              !props.disabled ? (!isVoid ? props.color : props.voidColor) : ""
+            }
+            size={20}
+            onClick={() => {
+              select(score - 0.5);
+            }}
+            class="r-rate__icon--half"
+          ></r-icon>
+        ) : (
+          ""
+        );
+      };
       let icon = (
         <div ref={setItemRefs(index)} class="r-rate__item">
           <r-icon
@@ -133,7 +135,7 @@ export default defineComponent({
               select(score);
             }}
           ></r-icon>
-          {halfIcon}
+          {halfIcon()}
         </div>
       );
       return icon;
@@ -174,7 +176,7 @@ export default defineComponent({
       event.preventDefault();
       select(getScoreByPosition(clientX));
     };
-    
+
     return { ...toRefs(state), select, renderStar, onTouchStart, onTouchMove };
   },
   render() {
