@@ -1,6 +1,7 @@
 <script lang="tsx">
-import { defineComponent, reactive, toRefs, onMounted, watch } from "vue";
-import { formatNumber } from "../../utils/utils";
+import { defineComponent, reactive, toRefs, computed, watch } from "vue";
+import { formatNumber, getPx } from "../../utils/utils";
+import { getFontSize } from "@/adapt";
 export default defineComponent({
   name: "RStepper",
   props: {
@@ -33,10 +34,29 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
+    inputWidth: {
+      type: [Number, String],
+      default: 0,
+    },
   },
   setup(props, { attrs, emit, slots }) {
     const state = reactive({
-      currentValue: 0,
+      currentValue: 0 as string | number,
+      inputStyle: computed(() => {
+        const DEFAULT_SIZE = 32;
+        let width;
+        const widthSize = props.inputWidth || DEFAULT_SIZE;
+        if (/px/.test(widthSize.toString()) || typeof widthSize === "number") {
+          const propsFontSize = +getPx(widthSize).slice(0, -2);
+          width = getPx(getFontSize(propsFontSize));
+        } else {
+          // % 与 rem
+          width = props.inputWidth;
+        }
+        return {
+          width,
+        };
+      }),
     });
     const step = +props.step;
     const powper = (value: number) => {
@@ -50,12 +70,12 @@ export default defineComponent({
       return m;
     };
     const minus = () => {
-      let power = powper(state.currentValue);
-      return (state.currentValue * power - step * power) / power;
+      let power = powper(+state.currentValue);
+      return (+state.currentValue * power - step * power) / power;
     };
     const add = () => {
-      let power = powper(state.currentValue);
-      return (state.currentValue * power + step * power) / power;
+      let power = powper(+state.currentValue);
+      return (+state.currentValue * power + step * power) / power;
     };
     const decreaseHandler = () => {
       if (props.disabled) return;
@@ -67,12 +87,13 @@ export default defineComponent({
       let value = beforeChange(add());
       emit("update:modelValue", value);
     };
-    const beforeChange = (value: number): number => {
-      let result = value;
+    const beforeChange = (value: number): number | string => {
+      let result: number | string = value;
       if (value < props.min) result = props.min;
       if (props.max && value > props.max) result = props.max;
       if (props.integer) result = parseInt(result.toString());
-      // if (props.decimalLength) result = parseInt(result.toString());
+      if (props.decimalLength) result = (+result).toFixed(props.decimalLength);
+      console.log("beforeChange", result);
       return result;
     };
     const leftBtn = () => {
@@ -112,11 +133,15 @@ export default defineComponent({
     const handlerInput = (event: Event) => {
       const input = event.target as HTMLInputElement;
       let { value } = input;
-      let formatted = formatNumber(String(value), !props.integer);
-      // console.log("formatted", formatted);
-      input.value = formatted;
-      state.currentValue = +formatted;
-      emit("update:modelValue", +formatted);
+      let formatted: string | number = formatNumber(
+        String(value),
+        !props.integer
+      );
+      formatted =
+        typeof +formatted === "number" ? beforeChange(+formatted) : formatted;
+      input.value = formatted.toString();
+      state.currentValue = formatted;
+      emit("update:modelValue", formatted);
     };
     const inputClass = () => {
       return [
@@ -143,6 +168,7 @@ export default defineComponent({
       inputClass,
       disabled,
       disableInput,
+      inputStyle,
     } = this;
     return (
       <div class="r-stepper">
@@ -150,6 +176,7 @@ export default defineComponent({
         <input
           onInput={handlerInput}
           class={inputClass()}
+          style={inputStyle}
           inputmode="decimal"
           value={this.currentValue}
           disabled={disabled || disableInput}

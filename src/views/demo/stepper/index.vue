@@ -21,6 +21,9 @@
     <r-cell title="固定小数位数">
       <r-stepper v-model="value5" step="0.2" :decimal-length="1" />
     </r-cell>
+    <r-cell title="固定小数位数">
+      <r-stepper v-model="value" input-width="100px" />
+    </r-cell>
   </div>
 </template>
 
